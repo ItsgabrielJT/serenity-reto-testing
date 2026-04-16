@@ -4,8 +4,6 @@ import com.saucedemo.automation.ui.pages.InventoryPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Scroll;
 
 public class AddProduct implements Task {
 

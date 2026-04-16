@@ -4,7 +4,6 @@ import com.saucedemo.automation.ui.pages.CheckoutPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.actions.Scroll;
 
 public class FinishPurchase implements Task {
 
