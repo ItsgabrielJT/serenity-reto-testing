@@ -1,10 +1,10 @@
-package com.company.automation.tasks.web;
+package com.saucedemo.automation.tasks.web;
 
-import com.company.automation.ui.pages.CheckoutPageTargets;
+import com.saucedemo.automation.ui.pages.CheckoutPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Scroll;
 
 public class FinishPurchase implements Task {
 

@@ -1,4 +1,4 @@
-package com.company.automation.ui.pages;
+package com.saucedemo.automation.ui.pages;
 
 import net.serenitybdd.screenplay.targets.Target;
 

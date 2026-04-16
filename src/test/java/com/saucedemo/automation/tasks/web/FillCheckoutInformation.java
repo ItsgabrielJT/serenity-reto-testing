@@ -1,12 +1,12 @@
-package com.company.automation.tasks.web;
+package com.saucedemo.automation.tasks.web;
 
-import com.company.automation.models.Customer;
-import com.company.automation.ui.pages.CheckoutPageTargets;
+import com.saucedemo.automation.models.Customer;
+import com.saucedemo.automation.ui.pages.CheckoutPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.actions.Scroll;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 
@@ -29,7 +29,7 @@ public class FillCheckoutInformation implements Task {
             Enter.theValue(customer.getFirstName()).into(CheckoutPageTargets.FIRST_NAME_FIELD),
             Enter.theValue(customer.getLastName()).into(CheckoutPageTargets.LAST_NAME_FIELD),
             Enter.theValue(customer.getZipCode()).into(CheckoutPageTargets.ZIP_CODE_FIELD),
-            net.serenitybdd.screenplay.actions.JavaScriptClick.on(CheckoutPageTargets.CONTINUE_BUTTON)
+            net.serenitybdd.screenplay.actions.Click.on(CheckoutPageTargets.CONTINUE_BUTTON)
         );
     }
 }

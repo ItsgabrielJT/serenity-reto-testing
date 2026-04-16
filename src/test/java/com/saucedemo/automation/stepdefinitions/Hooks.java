@@ -1,4 +1,4 @@
-package com.company.automation.stepdefinitions;
+package com.saucedemo.automation.stepdefinitions;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;

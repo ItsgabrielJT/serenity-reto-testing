@@ -1,6 +1,6 @@
-package com.company.automation.questions.web;
+package com.saucedemo.automation.questions.web;
 
-import com.company.automation.ui.pages.OrderConfirmationPageTargets;
+import com.saucedemo.automation.ui.pages.OrderConfirmationPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.questions.Text;

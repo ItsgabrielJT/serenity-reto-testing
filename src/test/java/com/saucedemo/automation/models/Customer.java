@@ -1,4 +1,4 @@
-package com.company.automation.models;
+package com.saucedemo.automation.models;
 
 import java.util.Map;
 
@@ -14,10 +14,14 @@ public class Customer {
     }
 
     public static Customer fromMap(Map<String, String> data) {
+        String fName = data.get("firstName");
+        String lName = data.get("lastName");
+        String zCode = data.get("zipCode");
+
         return new Customer(
-                data.getOrDefault("firstName", ""),
-                data.getOrDefault("lastName", ""),
-                data.getOrDefault("zipCode", "")
+                fName != null ? fName : "",
+                lName != null ? lName : "",
+                zCode != null ? zCode : ""
         );
     }
 

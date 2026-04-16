@@ -1,6 +1,6 @@
-package com.company.automation.tasks.web;
+package com.saucedemo.automation.tasks.web;
 
-import com.company.automation.ui.pages.LoginPageTargets;
+import com.saucedemo.automation.ui.pages.LoginPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;

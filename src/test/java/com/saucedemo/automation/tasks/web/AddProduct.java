@@ -1,6 +1,6 @@
-package com.company.automation.tasks.web;
+package com.saucedemo.automation.tasks.web;
 
-import com.company.automation.ui.pages.InventoryPageTargets;
+import com.saucedemo.automation.ui.pages.InventoryPageTargets;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
@@ -22,8 +22,11 @@ public class AddProduct implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-            net.serenitybdd.screenplay.waits.WaitUntil.the(InventoryPageTargets.ADD_TO_CART_BUTTON.of(productName), net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isClickable()).forNoMoreThan(10).seconds(),
-            Click.on(InventoryPageTargets.ADD_TO_CART_BUTTON.of(productName))
+            net.serenitybdd.screenplay.waits.WaitUntil.the(
+                InventoryPageTargets.addToCartButton(productName), 
+                net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible()
+            ).forNoMoreThan(10).seconds(),
+            net.serenitybdd.screenplay.actions.Click.on(InventoryPageTargets.addToCartButton(productName))
         );
     }
 }
