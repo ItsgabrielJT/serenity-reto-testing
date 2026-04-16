@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.34'
+}
+
+group = 'com.company.automation'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    serenityCoreVersion       = '4.2.34'
+    cucumberVersion           = '7.15.0'
+}
+
+serenity {
+    sourceDirectory = 'build/test-results/test'
+    outputDirectory = 'target/serenity-reports'
+    requirementsBaseDir = 'src/test/resources/features'
+    generateOutcomes = true
+    reports = ['single-page-html']
+}
+
+dependencies {
+
+    // ─── Serenity Core ────────────────────────────────────────────────────────
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
+
+    // ─── Cucumber ──────────────────────────────────────────────────────────────
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+
+    // ─── JUnit 4 (Serenity runner) ─────────────────────────────────────────────
+    testImplementation 'junit:junit:4.13.2'
+}
+
+// ─── Test Task ────────────────────────────────────────────────────────────────
+test {
+    useJUnit()
+    systemProperties System.properties
+    systemProperty 'serenity.outputDirectory', file('target/serenity-reports').absolutePath
+    outputs.upToDateWhen { false }
+    finalizedBy aggregate
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+    
+    // Parallel execution - Solo una prueba a la vez
+    maxParallelForks = 1
+    forkEvery = 1
+}
+
+clean {
+    delete 'target'
+}
+
+// ─── Gradle Wrapper ───────────────────────────────────────────────────────────
+wrapper {
+    gradleVersion = '8.5'
+}
