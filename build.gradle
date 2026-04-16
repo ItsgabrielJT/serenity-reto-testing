@@ -3,7 +3,7 @@ plugins {
     id 'net.serenity-bdd.serenity-gradle-plugin' version '4.2.34'
 }
 
-group = 'com.company.automation'
+group = 'com.saucedemo.automation'
 version = '1.0.0'
 
 java {
