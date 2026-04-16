@@ -4,19 +4,6 @@ Framework de automatizacion QA enfocado en el flujo web de compra de SauceDemo, 
 
 ---
 
-## Tecnologías
-
-| Tecnología           | Versión  | Uso                                  |
-|----------------------|----------|--------------------------------------|
-| Java                 | 17       | Lenguaje base                        |
-| Serenity BDD         | 4.2.34   | Orquestador + Reportes               |
-| Screenplay Pattern   | 4.2.34   | Arquitectura de actores              |
-| Cucumber             | 7.15.0   | BDD / Gherkin                        |
-| Gradle               | 8.5      | Build tool                           |
-| Chrome WebDriver     | auto     | Automatización web (Serenity auto-dl)|
-
----
-
 ## Estructura del proyecto
 
 ```text
@@ -40,36 +27,85 @@ src/test/resources/
 
 ---
 
+## Requisitos
+
+### 1. Prerequisitos
+
+A continuación se describen las versiones de las dependencias y tecnologías necesarias para configurar y ejecutar el proyecto en su máquina local:
+
+- **Máquina local** con sistema operativo macOS (o Windows 10/Linux).
+- **Java JDK**: versión 17 o superior (recomendado 17.0.6 LTS o posterior).
+- **IDE**: Visual Studio Code (con extensión de Java) o IntelliJ IDEA 2023.1+.
+- **Git**: versión 2.30 o superior (para clonar el repositorio).
+- **Gradle**: versión 8.5 o superior (incluido en el proyecto mediante `gradlew`).
+- **Chrome o Chromium**: última versión (requerido para WebDriver automation).
+- **RAM mínima**: 2GB disponible para ejecutar tests.
+
+### 2. Comandos de instalación
+
+Comandos básicos para descargar, configurar y preparar el proyecto en su máquina local:
+
+- `git clone <url-del-repositorio>` (clona el proyecto desde el repositorio remoto).
+- `cd serenity-opencart-testing` (navega al directorio del proyecto).
+- `java -version` (verifica que Java 17 esté instalado y configurado correctamente).
+- `./gradlew clean` (limpia compilaciones previas y descargas las dependencias de Gradle por primera vez).
+- `./gradlew build` (descarga todas las dependencias definidas en `build.gradle`: Serenity, Cucumber, Selenium, etc.).
+- `./gradlew test` (ejecuta la suite de tests una vez que todas las dependencias estén disponibles).
+
+---
+
 ## Ejecución
 
-### Todos los tests
+### Instalación de dependencias (primera vez)
 ```bash
-./gradlew test 
+./gradlew clean build
 ```
 
-Este comando ejecuta la suite configurada por defecto en cada invocación. La tarea `test` no reutiliza el estado `UP-TO-DATE`, por lo que siempre lanza los runners JUnit/Serenity detectados.
+Este comando descarga todas las dependencias (Serenity, Cucumber, Selenium, etc.) y compila el proyecto.
+
+### Ejecutar todos los tests
+```bash
+./gradlew test
+```
+
+Este comando ejecuta toda la suite configurada por defecto. Genera automáticamente reportes en `target/site/serenity/`.
+
+### Ejecutar con reporte agregado
+```bash
+./gradlew clean test aggregate
+```
+
+Limpia compilaciones previas, ejecuta los tests y genera el reporte final consolidado de Serenity en `target/site/serenity/index.html`.
 
 ### Solo UI (Web)
 ```bash
-./gradlew test -Dcucumber.filter.tags="@ui" 
+./gradlew test --tags "@ui"
 ```
+
+Ejecuta únicamente los escenarios etiquetados con `@ui` (flujo de compra web).
 
 ### Por runner específico
 ```bash
-./gradlew test --tests "com.company.automation.runners.WebUIRunner" 
+./gradlew test --tests "com.saucedemo.automation.runners.WebUIRunner"
 ```
 
-Runner disponible actualmente:
+Ejecuta solo el runner especificado para pruebas web.
 
-- `WebUIRunner`: ejecuta los escenarios etiquetados con `@ui`.
-
-### Headless (CI)
+### Modo Headless (para CI/CD)
 ```bash
 ./gradlew test \
-  -Dcucumber.filter.tags="@ui" \
-  -Dchrome.switches="--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--headless=new" \
-  
+  -Dheadless=true \
+  -Dchrome.switches="--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--headless=new"
 ```
+
+Ejecuta los tests sin interfaz gráfica, ideal para pipelines de CI/CD.
+
+### Limpiar y resetear
+```bash
+./gradlew clean
+```
+
+Elimina compilaciones previas y artefactos generados (carpeta `target/`).
 
 ---
 
@@ -87,21 +123,23 @@ Actualmente el proyecto fue depurado para conservar unicamente el flujo web acti
 
 ## Reportes
 
-El proyecto genera unicamente reportes Serenity. Los reportes HTML de Cucumber fueron eliminados para evitar salidas duplicadas.
+El proyecto genera únicamente reportes Serenity. Los reportes HTML de Cucumber fueron eliminados para evitar salidas duplicadas.
 
-Despues de ejecutar `./gradlew test`, el reporte que debes abrir es:
+Después de ejecutar `./gradlew test aggregate`, el reporte que debes abrir es:
 
-`target/serenity-reports/index.html`
+`target/site/serenity/index.html`
 
-Ese archivo es la vista final consolidada de Serenity.
-
+### Para abrir el reporte en macOS:
 ```bash
-open target/serenity-reports/index.html
+open target/site/serenity/index.html
 ```
 
-Nota:
-
-- `target/serenity-reports/` contiene el reporte HTML final y los artefactos de Serenity en un solo lugar.
+### Contenido del reporte:
+- `target/site/serenity/` contiene el reporte HTML final consolidado de Serenity con:
+  - Resumen de ejecución (escenarios exitosos/fallidos)
+  - Detalles de cada escenario
+  - Screenshots de cada paso
+  - Logs de ejecución y errores (si aplica)
 
 ---
 
