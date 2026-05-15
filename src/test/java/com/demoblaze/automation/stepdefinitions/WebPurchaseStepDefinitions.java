@@ -2,6 +2,8 @@ package com.demoblaze.automation.stepdefinitions;
 
 import com.demoblaze.automation.models.PurchaseOrder;
 import com.demoblaze.automation.questions.web.TheConfirmationMessage;
+import com.demoblaze.automation.questions.web.TheValidationAlert;
+import com.demoblaze.automation.tasks.web.AttemptPurchaseWithValidation;
 import com.demoblaze.automation.tasks.web.AddProduct;
 import com.demoblaze.automation.tasks.web.FillCheckoutInformation;
 import com.demoblaze.automation.tasks.web.FinishPurchase;
@@ -74,6 +76,20 @@ public class WebPurchaseStepDefinitions {
     public void purchaseConfirmationShouldContain(String expectedMessage) {
         theActorInTheSpotlight().should(
             seeThat(TheConfirmationMessage.text(), containsString(expectedMessage))
+        );
+    }
+
+    @When("the customer attempts to confirm the purchase")
+    public void attemptsToConfirmThePurchase() {
+        theActorInTheSpotlight().attemptsTo(
+            AttemptPurchaseWithValidation.andCaptureAlert()
+        );
+    }
+
+    @Then("the purchase should be rejected with a message containing {string}")
+    public void purchaseShouldBeRejectedWith(String expectedFragment) {
+        theActorInTheSpotlight().should(
+            seeThat(TheValidationAlert.text(), containsString(expectedFragment))
         );
     }
 }

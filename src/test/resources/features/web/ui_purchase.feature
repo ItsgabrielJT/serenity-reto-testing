@@ -24,3 +24,19 @@ Feature: Demoblaze E2E Purchase Flow
     Examples:
       | product1           | product2           | name      | country  | city   | creditCard    | month | year |
       | Samsung galaxy s6  | Nokia lumia 1520   | John Doe  | Colombia | Bogota | 4111111111111 | 05    | 2026 |
+
+  @ui
+  Scenario: Customer cannot complete a purchase with missing required fields
+    Given the customer is on the Demoblaze store
+    When the customer adds "Samsung galaxy s6" to the cart
+    And the customer views the shopping cart
+    And the customer clicks the place order button
+    And the customer fills in the purchase form with:
+      | name       |            |
+      | country    |            |
+      | city       |            |
+      | creditCard |            |
+      | month      |            |
+      | year       |            |
+    And the customer attempts to confirm the purchase
+    Then the purchase should be rejected with a message containing "Please fill out"

@@ -117,7 +117,7 @@ Elimina compilaciones previas y artefactos generados (carpeta `target/`).
 
 *(Nota: los tags de api, db, smoke, regression se añadirán conforme se expandan las pruebas de esos bloques).*
 
-Actualmente el proyecto implementa el flujo E2E de compra en Demoblaze: agregar dos productos al carrito, visualizar el carrito, completar el formulario de compra y finalizar la compra.
+Actualmente el proyecto implementa dos escenarios E2E sobre Demoblaze: el flujo positivo completo (agregar dos productos al carrito, visualizar el carrito, completar el formulario de compra y finalizar la compra) y un caso negativo que valida el rechazo de la compra cuando los campos obligatorios del formulario Place Order están vacíos.
 
 ---
 
@@ -150,7 +150,7 @@ open target/site/serenity/index.html
 - **Resiliencia de UI (Scroll)**: Se utiliza inyección `JavaScriptClick.on()` y sincronización basada en el Viewport físico (`WaitUntil.isVisible()`) sorteando limitantes dinámicas.
 - **Single Responsibility**: cada clase hace una sola cosa
 - **Open/Closed**: extensible sin modificar código existente
-- **Dependency Inversion**: Tasks dependen de Models concretos (`Customer`), aislándolas de estructuras lógicas de test y diccionarios (`Map`).
+- **Dependency Inversion**: Tasks dependen de Models concretos (`PurchaseOrder`), aislándolas de estructuras lógicas de test y diccionarios (`Map`).
 - **DRY**: el proyecto conserva solo las clases necesarias para la suite web actual
 - **High Cohesion**: packages agrupados por responsabilidad funcional
 - **Low Coupling**: Abilities, Tasks y Questions son independientes entre sí

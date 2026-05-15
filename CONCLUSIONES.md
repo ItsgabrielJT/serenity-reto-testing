@@ -6,8 +6,8 @@ La ejecución exitosa del flujo E2E de compra en **Demoblaze** demuestra que el 
 
 - **Feature ejecutada:** `web/ui_purchase.feature`
 - **Runner ejecutado:** `com.demoblaze.automation.runners.WebUIRunner`
-- **Escenarios ejecutados:** 1
-- **Escenarios exitosos:** 1
+- **Escenarios ejecutados:** 2
+- **Escenarios exitosos:** 2
 - **Escenarios fallidos:** 0
 - **Navegador:** Chrome (macOS Headless — `headless=new`)
 
@@ -36,14 +36,15 @@ A continuación se presenta la tabla comparativa de resultados base para futuras
 | Ejecución | Escenario                                          | VUs | Duración (s) | Navegador    | Resultado  |
 |-----------|----------------------------------------------------|-----|--------------|--------------|------------|
 | \#1       | Full Purchase 2 Products (Samsung s6 + Nokia 1520) | 1   | ~21          | Chrome HL    | ✅ EXITOSO  |
+| \#2       | Purchase Rejected — Empty Required Fields          | 1   | ~15          | Chrome HL    | ✅ EXITOSO  |
 
 La ejecución más reciente del flujo de compra fue funcionalmente exitosa, completando de punta a punta la adición de dos productos, navegación al carrito, llenado del formulario Place Order y confirmación de pago sin fallos de interacción.
 
 - Feature ejecutada: `web/ui_purchase.feature`
-- Escenarios ejecutados: 1
-- Escenarios exitosos: 1
+- Escenarios ejecutados: 2
+- Escenarios exitosos: 2
 - Escenarios fallidos: 0
-- Tiempo total de ejecución: ~21 s (local Headless)
+- Tiempo total de ejecución: ~15 s (local Headless)
 - Screenshot y logs: Capturados automáticamente por Serenity en fallos
 
 ## Hallazgos Principales
@@ -92,16 +93,17 @@ Esto fue útil para comprobar de forma explícita que:
 
 Resumen observado en la ejecución exitosa:
 
-- `scenarios_executed = 1`
-- `scenarios_passed = 1`
+- `scenarios_executed = 2`
+- `scenarios_passed = 2`
 - `scenarios_failed = 0`
 - `steps_passed = 100%`
 - `steps_failed = 0%`
-- `execution_time_seconds = ~21`
+- `execution_time_seconds = ~15`
 - `browser_used = Chrome (headless=new)`
 - `products_added = [Samsung galaxy s6, Nokia lumia 1520]`
 - `order_data = John Doe / Colombia / Bogota / 4111111111111 / 05 / 2026`
 - `confirmation_text = Thank you for your purchase!`
+- `negative_scenario = Purchase rejected with alert — empty name and credit card`
 
 Artefactos generados:
 - `target/serenity-reports/index.html` — Reporte completo consolidado
@@ -118,7 +120,7 @@ La arquitectura Screenplay Pattern con separación clara de capas (Models → Ta
 
 ### Conclusión práctica
 
-El framework está listo para escalar. La inyección del modelo `PurchaseOrder`, el patrón de Step Definitions limpios y la modularidad de Tasks permiten agregar nuevos escenarios (login con cuenta registrada, múltiples categorías de productos, eliminación de ítems del carrito) sin modificar código existente.
+El framework está listo para escalar. La inyección del modelo `PurchaseOrder`, el patrón de Step Definitions limpios y la modularidad de Tasks permiten agregar nuevos escenarios (login con cuenta registrada, múltiples categorías de productos, eliminación de ítems del carrito) sin modificar código existente. El caso negativo implementado demuestra además que la arquitectura soporta flujos de validación y rechazo sin duplicar lógica, reutilizando tasks existentes y extendiéndolos con un único task nuevo (`AttemptPurchaseWithValidation`).
 
 ## Recomendaciones
 
