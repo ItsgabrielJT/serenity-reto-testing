@@ -1,14 +1,14 @@
-# Serenity BDD — SauceDemo Enterprise Automation Framework
+# Serenity BDD — Demoblaze Enterprise Automation Framework
 
-Framework de automatizacion QA enfocado en el flujo web de compra de SauceDemo, construido con **Java + Serenity BDD + Screenplay Pattern**.
+Framework de automatizacion QA enfocado en el flujo web de compra de Demoblaze (https://www.demoblaze.com/), construido con **Java + Serenity BDD + Screenplay Pattern**.
 
 ---
 
 ## Estructura del proyecto
 
 ```text
-src/test/java/com/company/automation/
-├── models/             # POJOs de datos de negocio (ej. Customer)
+src/test/java/com/demoblaze/automation/
+├── models/             # POJOs de datos de negocio (ej. PurchaseOrder)
 ├── tasks/
 │   └── web/            # Tasks de interfaz web (Screenplay)
 ├── questions/
@@ -86,7 +86,7 @@ Ejecuta únicamente los escenarios etiquetados con `@ui` (flujo de compra web).
 
 ### Por runner específico
 ```bash
-./gradlew test --tests "com.saucedemo.automation.runners.WebUIRunner"
+./gradlew test --tests "com.demoblaze.automation.runners.WebUIRunner"
 ```
 
 Ejecuta solo el runner especificado para pruebas web.
@@ -117,7 +117,7 @@ Elimina compilaciones previas y artefactos generados (carpeta `target/`).
 
 *(Nota: los tags de api, db, smoke, regression se añadirán conforme se expandan las pruebas de esos bloques).*
 
-Actualmente el proyecto fue depurado para conservar unicamente el flujo web activo.
+Actualmente el proyecto implementa el flujo E2E de compra en Demoblaze: agregar dos productos al carrito, visualizar el carrito, completar el formulario de compra y finalizar la compra.
 
 ---
 
