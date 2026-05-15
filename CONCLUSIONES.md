@@ -89,6 +89,21 @@ Esto fue útil para comprobar de forma explícita que:
 - La inyección de modelos simplifica validaciones de formularios con múltiples campos
 - Las interacciones resilientes soportan UIs dinámicas con carga AJAX
 
+### 4. El Caso Negativo Valida el Rechazo de Compra con Campos Vacíos
+
+El escenario `Customer cannot complete a purchase with missing required fields` verifica que Demoblaze rechaza la compra cuando se omiten nombre y tarjeta de crédito:
+- Se llega al modal Place Order con un solo producto en carrito (Samsung galaxy s6)
+- Se deja el formulario con todos los campos vacíos y se hace clic en "Purchase"
+- Demoblaze lanza un `window.alert()` nativo con el mensaje de validación `Please fill out`
+- El task `AttemptPurchaseWithValidation` captura el texto del alert mediante `WebDriverWait + alertIsPresent()`, lo almacena en memoria del actor con `actor.remember()` y lo acepta
+- La question `TheValidationAlert` lee el texto recordado y permite asertarlo con `containsString("Please fill out")`
+- El SweetAlert de confirmación exitosa **no aparece**, confirmando el rechazo del formulario
+
+Esto fue útil para demostrar que:
+- El sitio valida campos obligatorios antes de procesar la compra
+- La arquitectura Screenplay permite modelar flujos negativos reutilizando layers existentes (`FillCheckoutInformation`, `ProceedToCheckout`) con un único task nuevo
+- `actor.remember()` y `actor.recall()` son el mecanismo adecuado para compartir estado entre tasks y questions sin acoplamiento directo
+
 ## Evidencia de la Última Ejecución
 
 Resumen observado en la ejecución exitosa:
